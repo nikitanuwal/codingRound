@@ -26,7 +26,9 @@
                                 <!-- Setting ReportNG listeners -->
                                 <property>
                                     <name>listener</name>
-                                    <value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
+                                    <value>org.uncommons.reportng.HTMLReporter,
+                                        org.uncommons.reportng.JUnitXMLReporter
+                                    </value>
                                 </property>
                             </properties>
                             <systemPropertyVariables>
@@ -92,9 +94,9 @@
             </exclusions>
         </dependency>
         <dependency>
-	    	<groupId>org.apache.velocity</groupId>
-	    	<artifactId>velocity</artifactId>
-	    	<version>1.7</version>
-		</dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
     </dependencies>
 </project>

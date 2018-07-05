@@ -1,0 +1,10 @@
+1. Code is not reusable 
+2. To make code more readable, maintainable and reusable we can use page object model 
+3. Driver path should be set before initializing driver
+4. We should use testNG annotations like AfterMethod for quiting browsers
+5. Common methods like waitFor or isElementPresent should be in Base class
+6. Web elements that are using pagefactory are not initialized using pagefactory class
+7. Support for parallel test is missing
+8. Reporting is missing
+9. Logging is missing
+  

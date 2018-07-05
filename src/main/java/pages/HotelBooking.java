@@ -16,10 +16,10 @@ public class HotelBooking extends BaseUtil {
 
     @FindBy(id = "Tags")
     public WebElement localityTextBox;
-    
+
     @FindBy(id = "CheckInDate")
     public WebElement checkInDate;
-    
+
     @FindBy(id = "CheckOutDate")
     public WebElement checkOutDate;
 
