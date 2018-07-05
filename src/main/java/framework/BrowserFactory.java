@@ -21,12 +21,12 @@ public abstract class BrowserFactory {
             case "CHROME":
                 setDriverPath();
                 ChromeOptions ops = new ChromeOptions();
+                ops.addArguments("--window-size=1600,1900");
                 ops.addArguments("--disable-notifications");
                 ops.addArguments("--disable-infobars");
                 driver = new ChromeDriver(ops);
                 break;
         }
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(36, TimeUnit.SECONDS);
         return driver;
     }
