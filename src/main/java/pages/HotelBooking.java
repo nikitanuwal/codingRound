@@ -1,14 +1,13 @@
-package pages;
+package main.java.pages;
 
-import framework.BrowserFactory;
+import main.java.framework.BaseUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by nikitanuwal on 7/4/2018.
- */
-public class HotelBooking {
+
+public class HotelBooking extends BaseUtil {
 
     WebDriver driver;
 
@@ -24,7 +23,13 @@ public class HotelBooking {
     @FindBy(xpath = "//*[@id='travellersOnhome']")
     public WebElement travellerSelection;
 
-    public HotelBooking(WebDriver driver){
+    public HotelBooking(WebDriver driver) {
+        super(driver);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void clickSearchButton() throws Exception {
+        click(searchButton);
     }
 }

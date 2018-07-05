@@ -1,29 +1,32 @@
-package tests;
+package main.java.tests;
 
-import com.sun.javafx.PlatformUtil;
-import framework.BrowserFactory;
-import org.openqa.selenium.WebDriver;
+import main.java.framework.BrowserFactory;
+import main.java.pages.HotelBooking;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.HotelBooking;
 
-public class HotelBookingTest {
+import java.util.List;
 
-    WebDriver driver = BrowserFactory.getBrowser("Chrome");;
+public class HotelBookingTest extends BrowserFactory {
+
+    HotelBooking hotelBooking;
+
+    @BeforeMethod(alwaysRun = true)
+    public void init() {
+        hotelBooking = new HotelBooking(driver);
+    }
 
     @Test
-    public void shouldBeAbleToSearchForHotels() {
-
+    public void shouldBeAbleToSearchForHotels() throws Exception {
         driver.get("https://www.cleartrip.com/");
-        HotelBooking HotelPage = PageFactory.initElements(driver, HotelBooking.class);
-        HotelPage.hotelLink.click();
-
-        HotelPage.localityTextBox.sendKeys("Indiranagar, Bangalore");
-
-        new Select(HotelPage.travellerSelection).selectByVisibleText("1 room, 2 adults");
-        HotelPage.searchButton.click();
+        hotelBooking.hotelLink.click();
+        hotelBooking.localityTextBox.sendKeys("Indiranagar, Bangalore");
+        List<WebElement> originOptions = driver.findElement(By.id("ui-id-1")).findElements(By.xpath(".//li[@class='list' and @role='presentation']"));
+        originOptions.get(0).click();
+        new Select(hotelBooking.travellerSelection).selectByVisibleText("1 room, 2 adults");
+        hotelBooking.clickSearchButton();
     }
 }

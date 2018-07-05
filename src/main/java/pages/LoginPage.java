@@ -1,13 +1,12 @@
-package pages;
+package main.java.pages;
 
+import main.java.framework.BaseUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by nikitanuwal on 7/4/2018.
- */
-public class LoginPage {
+public class LoginPage extends BaseUtil {
 
     WebDriver driver;
 
@@ -20,7 +19,9 @@ public class LoginPage {
     @FindBy(id = "signInButton")
     public WebElement signInButton;
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 }

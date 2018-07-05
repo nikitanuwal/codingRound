@@ -4,29 +4,20 @@ import com.sun.javafx.PlatformUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BrowserFactory {
     protected WebDriver driver;
 
-    /*
-     * Factory method for getting browsers
-     */
     public WebDriver getBrowser(String browserName) {
         WebDriver driver = null;
 
         switch (browserName.trim().toUpperCase()) {
-            case "FIREFOX":
-                driver = new FirefoxDriver();
-                break;
             case "CHROME":
                 setDriverPath();
                 ChromeOptions ops = new ChromeOptions();
@@ -40,7 +31,7 @@ public abstract class BrowserFactory {
         return driver;
     }
 
-    @Parameters({ "browser" })
+    @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true)
     public void initDriver(@Optional("chrome") String browser) {
         this.driver = getBrowser(browser);

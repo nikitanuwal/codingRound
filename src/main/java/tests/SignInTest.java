@@ -1,25 +1,23 @@
-package tests;
+package main.java.tests;
 
-import framework.BrowserFactory;
+import main.java.framework.BrowserFactory;
+import main.java.pages.LoginPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.LoginPage;
 
-import static framework.BaseUtil.waitFor;
+public class SignInTest extends BrowserFactory {
+    LoginPage login;
 
-public class SignInTest {
-
-    WebDriver driver = BrowserFactory.getBrowser("Chrome");
+    @BeforeMethod(alwaysRun = true)
+    public void init() {
+        login = new LoginPage(driver);
+    }
 
     @Test
     public void shouldThrowAnErrorIfSignInDetailsAreMissing() {
-
         driver.get("https://www.cleartrip.com/");
-        waitFor(2000);
-        LoginPage login = PageFactory.initElements(driver, LoginPage.class);
         login.yourTripLink.click();
         login.signIn.click();
 
