@@ -4,3 +4,6 @@ build
 /target/
 *.iml
 /test-output/
+.classpath
+.project
+.settings/
