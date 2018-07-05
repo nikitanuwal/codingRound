@@ -14,13 +14,13 @@ public class HotelBooking extends BaseUtil {
     @FindBy(xpath = "//*[@title='Find hotels in destinations around the world']")
     public WebElement hotelLink;
 
-    @FindBy(xpath = "//*[@id='Tags']")
+    @FindBy(id = "Tags")
     public WebElement localityTextBox;
 
-    @FindBy(xpath = "//*[@id='SearchHotelsButton']")
+    @FindBy(id = "SearchHotelsButton")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//*[@id='travellersOnhome']")
+    @FindBy(id = "travellersOnhome")
     public WebElement travellerSelection;
 
     public HotelBooking(WebDriver driver) {

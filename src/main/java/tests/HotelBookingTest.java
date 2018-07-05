@@ -5,6 +5,7 @@ import main.java.pages.HotelBooking;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -28,5 +29,6 @@ public class HotelBookingTest extends BrowserFactory {
         originOptions.get(0).click();
         new Select(hotelBooking.travellerSelection).selectByVisibleText("1 room, 2 adults");
         hotelBooking.clickSearchButton();
+        Assert.assertTrue(hotelBooking.isElementPresent(By.className("searchSummary")));
     }
 }

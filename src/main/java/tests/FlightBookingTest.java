@@ -11,26 +11,26 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class FlightBookingTest extends BrowserFactory {
-    FlightBooking FlightPage;
+    FlightBooking flightPage;
 
     @BeforeMethod(alwaysRun = true)
     public void init() {
-        FlightPage = new FlightBooking(driver);
+        flightPage = new FlightBooking(driver);
     }
 
     @Test
     public void testThatResultsAppearForAOneWayJourney() {
         driver.get("https://www.cleartrip.com/");
-        FlightPage.oneWay.click();
-        FlightPage.origin.clear();
-        FlightPage.origin.sendKeys("Bangalore");
+        flightPage.oneWay.click();
+        flightPage.origin.clear();
+        flightPage.origin.sendKeys("Bangalore");
         //wait for the auto complete options to appear for the origin
 
         List<WebElement> originOptions = driver.findElement(By.id("ui-id-1")).findElements(By.tagName("li"));
         originOptions.get(0).click();
 
-        FlightPage.destination.clear();
-        FlightPage.destination.sendKeys("Delhi");
+        flightPage.destination.clear();
+        flightPage.destination.sendKeys("Delhi");
         //wait for the auto complete options to appear for the destination
 
         //select the first item from the destination auto complete list
@@ -40,9 +40,9 @@ public class FlightBookingTest extends BrowserFactory {
         driver.findElement(By.xpath("//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr[3]/td[7]/a")).click();
 
         //all fields filled in. Now click on search
-        FlightPage.searchButton.click();
+        flightPage.searchButton.click();
 
         //verify that result appears for the provided journey search
-        Assert.assertTrue(FlightPage.isElementPresent(By.className("searchSummary")));
+        Assert.assertTrue(flightPage.isElementPresent(By.className("searchSummary")));
     }
 }
