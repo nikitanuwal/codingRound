@@ -1,4 +1,4 @@
-package framework;
+package main.java.framework;
 
 import com.sun.javafx.PlatformUtil;
 import org.openqa.selenium.WebDriver;
@@ -6,53 +6,52 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-public class BrowserFactory {
-    private static Map<String, WebDriver> drivers = new HashMap<String, WebDriver>();
+public abstract class BrowserFactory {
+    protected WebDriver driver;
 
     /*
      * Factory method for getting browsers
      */
-    public static WebDriver getBrowser(String browserName) {
+    public WebDriver getBrowser(String browserName) {
         WebDriver driver = null;
 
-        switch (browserName) {
-            case "Firefox":
-                driver = drivers.get("Firefox");
-                if (driver == null) {
-                    driver = new FirefoxDriver();
-                    drivers.put("Firefox", driver);
-                }
+        switch (browserName.trim().toUpperCase()) {
+            case "FIREFOX":
+                driver = new FirefoxDriver();
                 break;
-
-            case "Chrome":
-                driver = drivers.get("Chrome");
-                if (driver == null) {
-                    setDriverPath();
-                    ChromeOptions ops = new ChromeOptions();
-                    ops.addArguments("--disable-notifications");
-                    ops.addArguments("--disable-infobars");
-                    driver = new ChromeDriver(ops);
-                    driver.manage().window().maximize();
-                    drivers.put("Chrome", driver);
-                }
+            case "CHROME":
+                setDriverPath();
+                ChromeOptions ops = new ChromeOptions();
+                ops.addArguments("--disable-notifications");
+                ops.addArguments("--disable-infobars");
+                driver = new ChromeDriver(ops);
                 break;
         }
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(36, TimeUnit.SECONDS);
         return driver;
     }
 
-    @AfterMethod(alwaysRun = true)
-    public static void closeAllDriver() {
-        for (String key : drivers.keySet()) {
-            drivers.get(key).close();
-            drivers.get(key).quit();
-        }
+    @Parameters({ "browser" })
+    @BeforeMethod(alwaysRun = true)
+    public void initDriver(@Optional("chrome") String browser) {
+        this.driver = getBrowser(browser);
     }
 
-    public static void setDriverPath() {
+    @AfterMethod(alwaysRun = true)
+    public void quitDriver() {
+        driver.quit();
+    }
+
+    public void setDriverPath() {
         if (PlatformUtil.isMac()) {
             System.setProperty("webdriver.chrome.driver", "chromedriver");
         }
