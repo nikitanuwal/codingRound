@@ -9,4 +9,8 @@
             <class name="main.java.tests.FlightBookingTest" />
         </classes>
     </test> <!-- Chrome -->
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    </listeners>
 </suite> <!-- Suite -->
